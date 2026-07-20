@@ -36,6 +36,22 @@ services:
       - twin-b-state:/state
     restart: "no"
 
+  dashboard:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.dashboard
+    ports:
+      - "8503:8501"   # host 8503 — skulþ's own face keeps 8502
+    environment:
+      SKULTH_DASH_STATES: "twin-a:/state-a,twin-b:/state-b"
+      SKULTH_POD_RENT_MICRO: "2400000"
+      SKULTH_POD_EPOCH_SECONDS: "15"
+      SKULTH_POD_ASSUMED_APR_BPS: "500"
+    volumes:
+      - twin-a-state:/state-a:ro   # the face OBSERVES — read-only by mount
+      - twin-b-state:/state-b:ro
+    restart: "no"
+
 volumes:
   twin-a-state:
   twin-b-state:
