@@ -5,4 +5,7 @@ RUN pip install --no-cache-dir streamlit
 WORKDIR /app
 COPY pod/ pod/
 ENV PYTHONUNBUFFERED=1
+# streamlit runs the script with its own dir on sys.path, not the cwd —
+# the package root must be declared or `import pod.*` dies in-container
+ENV PYTHONPATH=/app
 CMD ["streamlit", "run", "pod/dashboard.py", "--server.headless", "true", "--server.port", "8501", "--server.address", "0.0.0.0"]
