@@ -8,3 +8,6 @@ tracker:
   url: https://forge.lockilabs.com/jnxmas/skulth
   api_auth_env: FORGEJO_API_TOKEN
   visibility: private
+last-session: 2026-07-20
+last-thread: 2032b097-28dc-42ef-8b64-dc3433a30127
+threads: 2032b097-28dc-42ef-8b64-dc3433a30127
