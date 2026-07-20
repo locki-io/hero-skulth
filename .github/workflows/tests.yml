@@ -1,6 +1,8 @@
 name: tests
 # The harness the judges can see — 62 tests, death-path coverage exceeding
-# life-path. The core is stdlib; eth-account is the one admitted dependency.
+# life-path. Zero third-party actions by choice (org policy requires SHA
+# pinning; we require nothing external at all): git clones, the runner's
+# python runs. The core is stdlib; eth-account is the one admitted dep.
 on:
   push:
     branches: [main]
@@ -10,9 +12,9 @@ jobs:
   pytest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-      - run: pip install pytest eth-account
-      - run: python -m pytest -v
+      - name: checkout (plain git, no external action)
+        run: git clone --depth 1 --branch "${GITHUB_REF_NAME}" "https://github.com/${GITHUB_REPOSITORY}" .
+      - name: deps
+        run: python3 -m pip install --quiet pytest eth-account
+      - name: harness
+        run: python3 -m pytest -v
