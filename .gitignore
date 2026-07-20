@@ -14,3 +14,9 @@ __pycache__/
 .venv/
 node_modules/
 .pytest_cache/
+
+# pod runtime state (tombstone, activity log) — never committed
+state/
+
+!env-templates/
+!env-templates/.env.*

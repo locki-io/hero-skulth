@@ -1,0 +1,9 @@
+[project]
+name = "hero-skulth"
+version = "0.1.0"
+description = "Agentic inspection of smart contracts under a survival constraint (Arc testnet)."
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
