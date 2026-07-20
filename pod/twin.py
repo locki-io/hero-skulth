@@ -126,6 +126,17 @@ def build_twin(cfg: TwinConfig) -> tuple[Metabolism, EpochClock]:
         print(f"[{cfg.name}] Valþyria [{cfg.regime_provenance}]: {decision.summary()}", flush=True)
         venue_file.write_text(json.dumps({"principal_micro": vault.principal_micro}))
 
+    # Design (b) custody (skulth#4, ratified 2026-07-20): the pod mints its
+    # own hand at first breath — key only in sealed state, address only in
+    # logs. Guarded: the stdlib-only demo image has no eth-account and no
+    # need for a hand (MockVault takes no signatures).
+    try:
+        from pod.wallet import ensure_wallet
+
+        print(f"[{cfg.name}] hand: {ensure_wallet(state)}", flush=True)
+    except ImportError:
+        pass  # chain-capable image grows the hand; the demo image doesn't need one
+
     genesis_file = state / "genesis.json"
     if genesis_file.exists():
         genesis = json.loads(genesis_file.read_text())["genesis"]
