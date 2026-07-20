@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Agentic inspection of smart contracts under a survival constraint (Arc testnet)."
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
+dependencies = ["eth-account>=0.13"]  # the ONE admitted dep (P2); gauntlet 2026-07-20
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
