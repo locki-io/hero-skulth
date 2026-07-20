@@ -1,0 +1,16 @@
+# --- sovereignty seal (skulth#5 M3) ---
+.env
+.env.*
+!env-templates/
+.forseti/
+# wells & local state (never public)
+.chroma/
+.wells/
+pod-activity.jsonl
+*.log
+# runtime
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.pytest_cache/

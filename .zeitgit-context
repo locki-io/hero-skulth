@@ -1,0 +1,10 @@
+agent: lifprasir@vaethir.com
+schema-version: 3
+model: claude-fable-5
+project: hero-skulth
+born: 2026-07-20
+tracker:
+  type: forgejo
+  url: https://forge.lockilabs.com/jnxmas/skulth
+  api_auth_env: FORGEJO_API_TOKEN
+  visibility: private
