@@ -87,11 +87,11 @@ class MockVault:
 
     venue_id = "mock-vault"
 
-    def __init__(self, rate_bps_schedule: list[int]) -> None:
+    def __init__(self, rate_bps_schedule: list[int], principal_micro: int = 0) -> None:
         if not rate_bps_schedule:
             raise ValueError("schedule must not be empty")
         self._schedule = list(rate_bps_schedule)
-        self.principal_micro = 0
+        self.principal_micro = principal_micro  # restorable: a restart is not a resurrection
 
     def deposit_micro(self, amount: int) -> None:
         self.principal_micro += amount

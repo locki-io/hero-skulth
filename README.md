@@ -21,7 +21,17 @@ Twin pods, one billing contract, two fates, accelerated epochs (1 h = 1 billing 
 - **Twin A** earns from one inspected venue, pays rent, survives.
 - **Twin B** starves, flatlines on stage — and stays on screen.
 
-*Run-it-yourself instructions arrive with the build (`docker compose up` from `deploy/`, one command, both twins).*
+Run it yourself — one command, both fates:
+
+```bash
+git clone https://github.com/locki-io/hero-skulth && cd hero-skulth/deploy
+docker compose up --build
+# twin-a settles rent every 15-second epoch and lives (earns 2.70 vs 2.40 rent)
+# twin-b abstains, runway counts 2 → 1 → 0, flatlines at epoch 3, exit code 3
+docker compose up twin-b   # the corpse refuses restart: same tombstone, exit 3
+```
+
+The death record is at `/state/TOMBSTONE.json` inside the dead twin's volume; the full life ledger at `/state/pod-activity.jsonl`.
 
 ## Architecture (three planes)
 

@@ -1,0 +1,40 @@
+# The twins — one earns and lives, one abstains and starves.
+#   docker compose up --build        (from deploy/)
+# Fast epochs (15 s): twin-b flatlines around the one-minute mark and its
+# corpse refuses restart (exit 3, same tombstone). Testnet-sim values only.
+services:
+  twin-a:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    environment:
+      SKULTH_POD_NAME: twin-a
+      SKULTH_POD_OPENING_MICRO: "100000000"  # 100 USDC-sim
+      SKULTH_POD_DEPOSIT_MICRO: "90000000"   # 90 into the mock vault (gate cleared)
+      SKULTH_POD_VAULT_BPS: "300"            # 2.70/epoch yield vs 2.40 rent
+      SKULTH_POD_RENT_MICRO: "2400000"
+      SKULTH_POD_EPOCH_SECONDS: "15"
+      SKULTH_POD_STATE_DIR: /state
+    volumes:
+      - twin-a-state:/state
+    restart: "no"   # death is designed; the tombstone refuses resurrection anyway
+
+  twin-b:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    environment:
+      SKULTH_POD_NAME: twin-b
+      SKULTH_POD_OPENING_MICRO: "7200000"    # exactly three rents
+      SKULTH_POD_DEPOSIT_MICRO: "0"          # abstains — and abstention has a price too
+      SKULTH_POD_VAULT_BPS: "300"
+      SKULTH_POD_RENT_MICRO: "2400000"
+      SKULTH_POD_EPOCH_SECONDS: "15"
+      SKULTH_POD_STATE_DIR: /state
+    volumes:
+      - twin-b-state:/state
+    restart: "no"
+
+volumes:
+  twin-a-state:
+  twin-b-state:
