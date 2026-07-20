@@ -26,7 +26,8 @@ services:
     environment:
       SKULTH_POD_NAME: twin-b
       SKULTH_POD_OPENING_MICRO: "7200000"    # exactly three rents
-      SKULTH_POD_DEPOSIT_MICRO: "0"          # abstains — and abstention has a price too
+      SKULTH_POD_DEPOSIT_MICRO: "90000000"   # WANTS to allocate — Valþyria abstains (crisis + reserve floor)
+      SKULTH_POD_REGIME: "crisis"            # twin B lives in the bad regime; abstention is correct and still fatal
       SKULTH_POD_VAULT_BPS: "300"
       SKULTH_POD_RENT_MICRO: "2400000"
       SKULTH_POD_EPOCH_SECONDS: "15"

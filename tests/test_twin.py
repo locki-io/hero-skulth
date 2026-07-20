@@ -17,8 +17,14 @@ def cfg(tmp_path, **over):
         opening_micro=7_200_000,
         deposit_micro=0,
         vault_bps=[300],
+        vault_audits=3,
+        vault_exploits=0,
+        vault_latency_epochs=0,
         rent_micro=2_400_000,
         epoch_seconds=10.0,
+        reserve_epochs=3,
+        regime="neutral",
+        regime_provenance="test",
         state_dir=tmp_path,
     )
     base.update(over)
@@ -56,7 +62,8 @@ def test_starved_twin_dies_on_schedule(tmp_path):
     reports = simulate(cfg(tmp_path))
     assert [r.survived for r in reports] == [True, True, True, False]
     record = json.loads((tmp_path / "TOMBSTONE.json").read_text())
-    assert record["last_decision"] == "abstained — no venue entered (survival-first)"
+    assert record["last_decision"].startswith("abstained")
+    assert "doubt is an asset" in record["last_decision"]
 
 
 def test_funded_twin_survives(tmp_path):
