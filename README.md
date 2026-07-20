@@ -1,5 +1,7 @@
 # Hero-skulth
 
+[![tests](https://github.com/locki-io/hero-skulth/actions/workflows/tests.yml/badge.svg)](https://github.com/locki-io/hero-skulth/actions/workflows/tests.yml)
+
 > **Agentic inspection of smart contracts — under a survival constraint.**
 > Built for the Encode × Arc Programmable Money Hackathon (Agentic Economy / DeFi tracks). Arc testnet only.
 
@@ -46,7 +48,7 @@ The pod's cognitive engine derives from a sovereign local RAG + consistency-rule
 
 ## Status
 
-Plan phase complete (architecture, adversarial review, landscape benchmark); build in progress toward Demo Day. This repository will only ever contain the pod's decision plane — the private data plane is not, and will never be, in this history.
+All slice organs built and proven: **62 deterministic tests** (the death path carries more coverage than the life path — dust edges to the micro, one-tombstone-ever, a zombie check where riches cannot resurrect a corpse), plus live container runs: the starved twin flatlined on schedule, refused restart with the same tombstone, and its corpse stayed on screen. On-chain next: RentVault deployment and the first real USYC mint (allowlist pending). This repository will only ever contain the pod's decision plane — the private data plane is not, and will never be, in this history.
 
 ## Honesty labels
 
