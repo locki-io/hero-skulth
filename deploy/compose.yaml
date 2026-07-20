@@ -41,7 +41,7 @@ services:
       context: ..
       dockerfile: deploy/Dockerfile.dashboard
     ports:
-      - "8503:8501"   # host 8503 — skulþ's own face keeps 8502
+      - "8602:8501"   # pod_port_pattern 86{slot}: skulþ is slot 02 → 8602 (registry line 38; 8503 is autohypo's)
     environment:
       SKULTH_DASH_STATES: "twin-a:/state-a,twin-b:/state-b"
       SKULTH_POD_RENT_MICRO: "2400000"
