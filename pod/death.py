@@ -12,6 +12,7 @@ Money is integer micro-USDC (6 decimals); floats never touch the ledger.
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Protocol
@@ -122,3 +123,5 @@ class DeathDaemon:
         event = {"ts": datetime.now(timezone.utc).isoformat(), **event}
         with (self.state_dir / ACTIVITY_NAME).open("a") as f:
             f.write(json.dumps(event) + "\n")
+            f.flush()
+            os.fsync(f.fileno())  # a hard host stop must not tear the life ledger

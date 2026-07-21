@@ -54,8 +54,13 @@ def read_twin(state_dir: Path, name: str) -> TwinView:
     reports: list[dict] = []
     activity = state_dir / ACTIVITY_NAME
     if activity.exists():
-        for line in activity.read_text().splitlines():
-            event = json.loads(line)
+        # the log is appended while we read; a hard host stop can also leave a
+        # NUL-torn line behind — the face skips scars, it does not die of them
+        for line in activity.read_text(errors="replace").splitlines():
+            try:
+                event = json.loads(line)
+            except json.JSONDecodeError:
+                continue
             if event.get("action") == "epoch-report":
                 reports.append(event)
 

@@ -57,6 +57,18 @@ def test_abstention_is_visible(tmp_path):
     assert abstention_marks(view) == "▣▣▣"  # three survived epochs, no earnings
 
 
+def test_torn_ledger_line_is_skipped_not_fatal(tmp_path):
+    # a hard host stop can leave a NUL-torn append; the face reads past the scar
+    lived_state(tmp_path)
+    before = read_twin(tmp_path, "twin-b")
+    activity = tmp_path / "pod-activity.jsonl"
+    with activity.open("ab") as f:
+        f.write(b"\x00" * 483 + b"\n")
+    view = read_twin(tmp_path, "twin-b")
+    assert view.dead is True
+    assert len(view.reports) == len(before.reports)  # the scar cost nothing but itself
+
+
 def test_runway_moods():
     assert runway_stage(10) == "calm"
     assert runway_stage(4) == "calm"
